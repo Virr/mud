@@ -90,9 +90,31 @@ bool stop_follower(CHAR_DATA *ch, int mode) {
 			}
 		}
 	}
-
+	if (IS_NPC(ch) && MOB_FLAGGED(ch, MOB_PLAYER_SUMMON)) { // фул рестор моба (Кудояр)
+		act("Магия подпитующая $n3 развеялась, и $n0 вернулся в норму.", TRUE, ch, 0, 0, TO_ROOM | TO_ARENA_LISTEN);
+		ch->restore_npc();
+			
+			for (int i = 0; i < NUM_WEARS; i++) { // убираем что одето
+				if (GET_EQ(ch, i)) {
+					if (!remove_otrigger(GET_EQ(ch, i), ch)) {
+						continue;
+					}
+					obj_to_char(unequip_char(ch, i | 0x40), ch);
+					//extract_obj(tmp);
+					while (ch->carrying) {
+						OBJ_DATA *obj = ch->carrying;
+							extract_obj(obj);
+					}
+				}
+			}
+			// 	// for (OBJ_DATA *cont = ch->carrying; cont > 0; cont = cont->get_next_content()) {
+			// 	// extract_obj(cont);
+			// }
+	}
+	
+	 
 	if (IS_NPC(ch)
-		&& !MOB_FLAGGED(ch, MOB_PLAYER_SUMMON)    //Не ресетим флаги, если моб призван игроком
+		//&& !MOB_FLAGGED(ch, MOB_PLAYER_SUMMON)    //Не ресетим флаги, если моб призван игроком
 		&& (i = GET_MOB_RNUM(ch)) >= 0) {
 		MOB_FLAGS(ch) = MOB_FLAGS(mob_proto + i);
 	}
