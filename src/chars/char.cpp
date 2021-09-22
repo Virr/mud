@@ -1877,7 +1877,15 @@ void CHAR_DATA::restore_npc() {
 	GET_AR(this) = GET_AR(proto);
 	GET_MR(this) = GET_MR(proto);
 	GET_PR(this) = GET_PR(proto);
-	
+	// ресторим имена
+	this->player_data.PNames[0] = proto->player_data.PNames[0];
+	this->player_data.PNames[1] = proto->player_data.PNames[1];
+	this->player_data.PNames[2] = proto->player_data.PNames[2];
+	this->player_data.PNames[3] = proto->player_data.PNames[3];
+	this->player_data.PNames[4] = proto->player_data.PNames[4];
+	this->player_data.PNames[5] = proto->player_data.PNames[5];
+	this->set_pc_name(GET_PC_NAME(proto));
+	this->set_npc_name(GET_NAME(proto));
     // кубики // екстра атаки
 	this->mob_specials.damnodice = proto->mob_specials.damnodice;
 	this->mob_specials.damsizedice = proto->mob_specials.damsizedice;
@@ -1887,6 +1895,8 @@ void CHAR_DATA::restore_npc() {
 	// this->mob_specials.ExtraAttack = 0;
 	//флаги
 	MOB_FLAGS(this) = MOB_FLAGS(proto);
+	this->set_touching(0);
+	this->set_protecting(0);
 	// ресторим статы
 	this->set_str(GET_REAL_STR(proto));
 	this->set_int(GET_REAL_INT(proto));
