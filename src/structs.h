@@ -1145,7 +1145,7 @@ const short LVL_IMMORT = 31;
 #define NUM_OF_DIRS  6        // number of directions in a room (nsewud) //
 #define MAGIC_NUMBER (0x06)    // Arbitrary number that won't be in a string //
 
-constexpr long long OPT_USEC = 40000;    // 25 passes per second //
+constexpr long long OPT_USEC = 31250;    // 32 passes per second //
 constexpr long long PASSES_PER_SEC = 1000000 / OPT_USEC;
 
 #define RL_SEC    * PASSES_PER_SEC
